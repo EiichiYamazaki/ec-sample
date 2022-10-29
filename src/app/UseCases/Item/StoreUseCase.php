@@ -7,12 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class StoreUseCase
 {
-    private ItemRepository $itemRepository;
-
     public function __construct(
-        ItemRepository $itemRepository
+        private readonly ItemRepository $itemRepository,
     ) {
-        $this->itemRepository = $itemRepository;
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Item;
+namespace App\Http\Requests;
 
 use App\Enum\ItemEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreRequest extends FormRequest
+class ItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

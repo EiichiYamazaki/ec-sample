@@ -7,17 +7,14 @@ use App\Repositories\CategoryRepository;
 
 class CreateUseCase
 {
-    private CategoryRepository $categoryRepository;
-
     public function __construct(
-        CategoryRepository $categoryRepository
+        private readonly CategoryRepository $categoryRepository
     ) {
-        $this->categoryRepository = $categoryRepository;
     }
 
     public function __invoke(): array
     {
-        $categories = $this->categoryRepository->getBy();
+        $categories = $this->categoryRepository->findAll();
         $itemEnum = ItemEnum::cases();
         return [$categories, $itemEnum];
     }

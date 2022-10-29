@@ -5,31 +5,30 @@ namespace App\UseCases\Item;
 use App\Enum\ItemEnum;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ItemRepository;
+use App\Services\ItemService;
 
 class EditUseCase
 {
-    private ItemRepository $itemRepository;
-    private CategoryRepository $categoryRepository;
-
     public function __construct(
-        ItemRepository $itemRepository,
-        CategoryRepository $categoryRepository
+        private readonly ItemRepository $itemRepository,
+        private readonly CategoryRepository $categoryRepository,
+        private readonly ItemService $itemService,
     ) {
-        $this->itemRepository = $itemRepository;
-        $this->categoryRepository = $categoryRepository;
     }
 
     public function __invoke($id): array
     {
-        $this->itemRepository->findBy('id', $id);
-        $item = $this->itemRepository->firstBy();
+        if ($this->itemService->exists($id) === false) {
+            dd('商品が見つかりません。Exception作る');
+        }
+        $item = $this->itemRepository->find($id);
 
         $categoryItems = [];
         foreach ($item->categories as $category) {
             $categoryItems[] = $category->pivot->category_id;
         }
 
-        $categories = $this->categoryRepository->getBy();
+        $categories = $this->categoryRepository->findAll();
 
         $itemEnum = ItemEnum::cases();
         return [$item, $categoryItems, $categories, $itemEnum];

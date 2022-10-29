@@ -2,13 +2,41 @@
 
 namespace App\Repositories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 
-class CategoryRepository extends BaseRepository
+class CategoryRepository
 {
+    private Builder $category;
+
+    public function __construct(Category $category)
+    {
+        $this->category = $category::query();
+    }
+
     /**
-     * @property \App\Models\Category
+     * @param int $id
+     * @return null
      */
-    protected string $name = 'Category';
-    protected Builder $query;
+    public function find(int $id)
+    {
+        return $this->category->find($id);
+    }
+
+    /**
+     * @return null
+     */
+    public function findAll()
+    {
+        return $this->category->get();
+    }
+
+    /**
+     * @param array $data
+     * @return null
+     */
+    public function update(array $data)
+    {
+        return $this->category->update($data);
+    }
 }

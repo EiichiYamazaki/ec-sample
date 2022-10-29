@@ -3,32 +3,34 @@
 namespace App\UseCases\Item;
 
 use App\Repositories\ItemRepository;
+use App\Services\ItemService;
 use Illuminate\Database\Eloquent\Model;
 
 class UpdateUseCase
 {
-    private ItemRepository $itemRepository;
-
     public function __construct(
-        ItemRepository $itemRepository
+        private readonly ItemRepository $itemRepository,
+        private readonly ItemService $itemService,
     ) {
-        $this->itemRepository = $itemRepository;
     }
 
     /**
+     * @param $id
      * @param $request
      * @return Model
      */
     public function __invoke($id, $request): Model
     {
-        $this->itemRepository->findBy('id', $id);
+        if ($this->itemService->exists($id) === false) {
+            dd('商品が見つかりません。Exception作る');
+        }
+        $item = $this->itemRepository->find($id);
         $this->itemRepository->update([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'is_published' => $request->is_published,
         ]);
-        $item = $this->itemRepository->firstBy();
         $item->categories()->sync($request->category);
         return $item;
     }

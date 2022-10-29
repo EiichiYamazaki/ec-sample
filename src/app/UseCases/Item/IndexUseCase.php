@@ -6,16 +6,13 @@ use App\Repositories\ItemRepository;
 
 class IndexUseCase
 {
-    private ItemRepository $itemRepository;
-
     public function __construct(
-        ItemRepository $itemRepository
+        private readonly ItemRepository $itemRepository
     ) {
-        $this->itemRepository = $itemRepository;
     }
 
     public function __invoke(): \Illuminate\Database\Eloquent\Collection
     {
-        return $this->itemRepository->getBy();
+        return $this->itemRepository->findAll();
     }
 }
