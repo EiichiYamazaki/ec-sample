@@ -7,20 +7,13 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CategoryRepository
 {
-    private Builder $category;
-
-    public function __construct(Category $category)
-    {
-        $this->category = $category::query();
-    }
-
     /**
      * @param int $id
      * @return null
      */
     public function find(int $id)
     {
-        return $this->category->find($id);
+        return Category::query()->find($id);
     }
 
     /**
@@ -28,7 +21,7 @@ class CategoryRepository
      */
     public function findAll()
     {
-        return $this->category->get();
+        return Category::query()->get();
     }
 
     /**
@@ -37,6 +30,6 @@ class CategoryRepository
      */
     public function update(array $data)
     {
-        return $this->category->update($data);
+        return Category::query()->update($data);
     }
 }
