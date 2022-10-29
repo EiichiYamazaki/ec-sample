@@ -7,20 +7,13 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ItemRepository
 {
-    private Builder $item;
-
-    public function __construct(Item $item)
-    {
-        $this->item = $item::query();
-    }
-
     /**
      * @param int $id
      * @return null
      */
     public function find(int $id)
     {
-        return $this->item->find($id);
+        return Item::query()->find($id);
     }
 
     /**
@@ -28,7 +21,7 @@ class ItemRepository
      */
     public function findAll()
     {
-        return $this->item->get();
+        return Item::query()->get();
     }
 
     /**
@@ -37,7 +30,7 @@ class ItemRepository
      */
     public function create(array $data)
     {
-        return $this->item->create($data);
+        return Item::query()->create($data);
     }
 
     /**
@@ -46,6 +39,6 @@ class ItemRepository
      */
     public function update(array $data)
     {
-        return $this->item->update($data);
+        return Item::query()->update($data);
     }
 }
