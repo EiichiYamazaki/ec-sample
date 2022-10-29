@@ -22,3 +22,19 @@ php artisan db:seed
 [local](http://localhost)
 
 [phpmyadmin](http://localhost:8001)
+
+## test
+
+### Setup
+testテーブルを作成
+
+```
+docker exec -it ec-sample_php bash
+php artisan migrate --env=testing
+```
+
+### 実行
+```
+docker exec -it ec-sample_php bash
+php artisan test
+```
