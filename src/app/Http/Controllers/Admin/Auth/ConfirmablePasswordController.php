@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -14,10 +16,8 @@ class ConfirmablePasswordController extends Controller
 {
     /**
      * Show the confirm password view.
-     *
-     * @return \Illuminate\View\View
      */
-    public function show()
+    public function show(): View
     {
         return view('admin.auth.confirm-password');
     }
@@ -25,9 +25,9 @@ class ConfirmablePasswordController extends Controller
     /**
      * Confirm the user's password.
      *
-     * @return mixed
+     * @throws ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         if (!Auth::guard('admins')->validate([
             'email'    => $request->user()->email,

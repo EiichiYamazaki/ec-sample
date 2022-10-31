@@ -10,7 +10,5 @@ parameters:
 
     ignoreErrors:
     excludePaths:
-        - ./app/Http/Controllers/Admin/Auth
-        - ./app/Http/Controllers/Front/Auth
 
     checkMissingIterableValueType: false
