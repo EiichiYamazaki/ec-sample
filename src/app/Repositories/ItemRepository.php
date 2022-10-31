@@ -26,8 +26,8 @@ class ItemRepository
         return Item::query()->create($data);
     }
 
-    public function update(array $data): int
+    public function update(int $id, array $data): int
     {
-        return Item::query()->update($data);
+        return Item::query()->where('id', $id)->update($data);
     }
 }

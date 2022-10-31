@@ -26,7 +26,7 @@ class UpdateUseCase
 
         /** @var Item $item */
         $item = $this->itemRepository->find($id);
-        $this->itemRepository->update([
+        $this->itemRepository->update($id, [
             'name'         => $request->name,
             'description'  => $request->description,
             'price'        => $request->price,
