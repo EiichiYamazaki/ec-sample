@@ -2,6 +2,7 @@
 
 namespace App\UseCases\Item;
 
+use App\Exceptions\NoItemException;
 use App\Repositories\ItemRepository;
 use App\Services\ItemService;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,7 @@ class UpdateUseCase
     public function __invoke($id, $request): Model
     {
         if ($this->itemService->exists($id) === false) {
-            dd('商品が見つかりません。Exception作る');
+            Throw new NoItemException($id, '商品が取得できませんでした。');
         }
         $item = $this->itemRepository->find($id);
         $this->itemRepository->update([

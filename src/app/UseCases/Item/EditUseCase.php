@@ -3,6 +3,7 @@
 namespace App\UseCases\Item;
 
 use App\Enum\ItemEnum;
+use App\Exceptions\NoItemException;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ItemRepository;
 use App\Services\ItemService;
@@ -19,7 +20,7 @@ class EditUseCase
     public function __invoke($id): array
     {
         if ($this->itemService->exists($id) === false) {
-            dd('商品が見つかりません。Exception作る');
+            Throw new NoItemException($id, '商品が取得できませんでした。');
         }
         $item = $this->itemRepository->find($id);
 
