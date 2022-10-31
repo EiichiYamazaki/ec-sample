@@ -13,7 +13,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_central
+          MYSQL_DATABASE: test
           TZ: "Asia/Tokyo"
         ports:
           - 3306:3306
