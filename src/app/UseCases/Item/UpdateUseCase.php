@@ -24,14 +24,14 @@ class UpdateUseCase
             throw new NoItemException($id, '商品が取得できませんでした。');
         }
 
-        /** @var Item $item */
-        $item = $this->itemRepository->find($id);
         $this->itemRepository->update($id, [
             'name'         => $request->name,
             'description'  => $request->description,
             'price'        => $request->price,
             'is_published' => $request->is_published,
         ]);
+        /** @var Item $item */
+        $item = $this->itemRepository->find($id);
         $item->categories()->sync($request->category);
 
         return $item;
