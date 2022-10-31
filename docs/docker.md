@@ -1,6 +1,6 @@
-## Setup
+# Docker
 
-### Docker
+## Setup
 
 up
 ```
@@ -17,24 +17,8 @@ php artisan migrate
 php artisan db:seed  
 ```
 
-### アクセス
+## アクセス
 
 [local](http://localhost)
 
 [phpmyadmin](http://localhost:8001)
-
-## test
-
-### Setup
-testテーブルを作成
-
-```
-docker exec -it ec-sample_php bash
-php artisan migrate --env=testing
-```
-
-### 実行
-```
-docker exec -it ec-sample_php bash
-php artisan test
-```
