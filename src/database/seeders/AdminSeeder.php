@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-         Admin::create([
+         Admin::query()->create([
              'name' => 'test',
              'email' => 'test@test.test',
              'password' => Hash::make('testtest'),

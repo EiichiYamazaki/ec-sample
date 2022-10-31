@@ -10,3 +10,10 @@ parameters:
 
     # The level 9 is the highest level
     level: 5
+
+    ignoreErrors:
+    excludePaths:
+        - ./app/Http/Controllers/Admin/Auth
+        - ./app/Http/Controllers/Front/Auth
+
+    checkMissingIterableValueType: false

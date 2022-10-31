@@ -12,18 +12,18 @@ class CategorySeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        Category::create([
+        Category::query()->create([
             'name' => '武器',
         ]);
-        Category::create([
+        Category::query()->create([
             'name' => '食べ物',
         ]);
-        Category::create([
+        Category::query()->create([
             'name' => '小物',
         ]);
-        Category::create([
+        Category::query()->create([
             'name' => '秘密',
         ]);
     }

@@ -13,27 +13,27 @@ class ItemSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        Item::create([
+        Item::query()->create([
             'name' => '腐ったナイフ',
             'description' => '切れないナイフ',
             'price' => 100,
             'is_published' => ItemEnum::Publish,
         ]);
-        Item::create([
+        Item::query()->create([
             'name' => 'メッシュの盾',
             'description' => '通気性の良い盾',
             'price' => 150,
             'is_published' => ItemEnum::Publish,
         ]);
-        Item::create([
+        Item::query()->create([
             'name' => '高価なネジ',
             'description' => 'プラスのネジ',
             'price' => 999999,
             'is_published' => ItemEnum::Publish,
         ]);
-        Item::create([
+        Item::query()->create([
             'name' => '見えない剣',
             'description' => '見えてはいけない',
             'price' => 1000,

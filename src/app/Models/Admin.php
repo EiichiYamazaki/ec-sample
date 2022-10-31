@@ -11,9 +11,7 @@ class Admin extends Authenticatable
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'name',
@@ -22,9 +20,7 @@ class Admin extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * @var string[]
      */
     protected $hidden = [
         'password',
@@ -32,9 +28,7 @@ class Admin extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * @var string[]
      */
     protected $casts = [
         'email_verified_at' => 'datetime',

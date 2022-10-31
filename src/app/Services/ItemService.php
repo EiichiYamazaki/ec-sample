@@ -11,6 +11,10 @@ class ItemService
     ) {
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public function exists(int $id): bool
     {
         $item = $this->itemRepository->find($id);

@@ -3,6 +3,7 @@
 namespace App\UseCases\Item;
 
 use App\Repositories\ItemRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class IndexUseCase
 {
@@ -11,7 +12,10 @@ class IndexUseCase
     ) {
     }
 
-    public function __invoke(): \Illuminate\Database\Eloquent\Collection
+    /**
+     * @return Collection
+     */
+    public function __invoke(): Collection
     {
         return $this->itemRepository->findAll();
     }
