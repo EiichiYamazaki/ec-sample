@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\Item;
 
 use App\Enum\ItemEnum;
@@ -16,6 +18,7 @@ class CreateUseCase
     {
         $categories = $this->categoryRepository->findAll();
         $itemEnum = ItemEnum::cases();
+
         return [$categories, $itemEnum];
     }
 }

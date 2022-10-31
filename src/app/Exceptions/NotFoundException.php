@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use RuntimeException;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class NotFoundException extends RuntimeException
@@ -13,16 +15,12 @@ class NotFoundException extends RuntimeException
         string $message,
         int $code = Response::HTTP_NOT_FOUND,
         ?Throwable $previous = null
-    )
-    {
+    ) {
         parent::__construct($message, $code, $previous);
     }
 
     /**
      * 例外排出時の表示内容
-     *
-     * @param Request $request
-     * @return Response
      */
     public function render(Request $request): Response
     {

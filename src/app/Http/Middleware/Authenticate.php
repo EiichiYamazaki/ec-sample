@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
@@ -11,17 +13,18 @@ class Authenticate extends Middleware
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
-     * @param  Request  $request
-     * @return string|null
+     * @param Request $request
      */
     protected function redirectTo($request): ?string
     {
-        if (! $request->expectsJson()) {
+        if (!$request->expectsJson()) {
             if (Route::is(config('route.admin'))) {
                 return route(config('route.admin_login_route'));
             }
+
             return route(config('route.front_login_route'));
         }
+
         return null;
     }
 }

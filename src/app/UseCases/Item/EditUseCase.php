@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\Item;
 
 use App\Enum\ItemEnum;
 use App\Exceptions\NoItemException;
-use App\Models\Item;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ItemRepository;
 use App\Services\ItemService;
@@ -21,7 +22,7 @@ class EditUseCase
     public function __invoke($id): array
     {
         if ($this->itemService->exists($id) === false) {
-            Throw new NoItemException($id, '商品が取得できませんでした。');
+            throw new NoItemException($id, '商品が取得できませんでした。');
         }
         $item = $this->itemRepository->find($id);
 
@@ -33,6 +34,7 @@ class EditUseCase
         $categories = $this->categoryRepository->findAll();
 
         $itemEnum = ItemEnum::cases();
+
         return [$item, $categoryItems, $categories, $itemEnum];
     }
 }

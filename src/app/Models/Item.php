@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enum\ItemEnum;
@@ -14,16 +16,13 @@ class Item extends Model
     protected $guarded = [
         'id',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     protected $casts = [
         'is_published' => ItemEnum::class,
     ];
 
-    /**
-     * @return BelongsToMany
-     */
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
@@ -44,5 +43,4 @@ class Item extends Model
     {
         return $this->belongsToMany(Order::class);
     }
-
 }

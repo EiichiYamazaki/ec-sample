@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enum\ItemEnum;
@@ -11,18 +13,15 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ItemFactory extends Factory
 {
-
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
-            'description' => $this->faker->realText,
-            'price' => 500,
+            'name'         => $this->faker->name,
+            'description'  => $this->faker->realText,
+            'price'        => 500,
             'is_published' => ItemEnum::Publish->value,
         ];
     }

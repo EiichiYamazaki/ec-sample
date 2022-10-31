@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\Item;
 
 use App\Exceptions\NoItemException;
@@ -16,25 +18,22 @@ class UpdateUseCase
     ) {
     }
 
-    /**
-     * @param $id
-     * @param $request
-     * @return Model
-     */
     public function __invoke($id, $request): Model
     {
         if ($this->itemService->exists($id) === false) {
-            Throw new NoItemException($id, '商品が取得できませんでした。');
+            throw new NoItemException($id, '商品が取得できませんでした。');
         }
+
         /** @var Item $item */
         $item = $this->itemRepository->find($id);
         $this->itemRepository->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
+            'name'         => $request->name,
+            'description'  => $request->description,
+            'price'        => $request->price,
             'is_published' => $request->is_published,
         ]);
         $item->categories()->sync($request->category);
+
         return $item;
     }
 }

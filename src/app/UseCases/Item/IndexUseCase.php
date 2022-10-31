@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\Item;
 
 use App\Repositories\ItemRepository;
@@ -12,9 +14,6 @@ class IndexUseCase
     ) {
     }
 
-    /**
-     * @return Collection
-     */
     public function __invoke(): Collection
     {
         return $this->itemRepository->findAll();

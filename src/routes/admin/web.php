@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin;
+declare(strict_types=1);
 
-Route::middleware('guest:admins')->group(function () {
-    Route::get('/', function () {
-        return view('admin.welcome');
-    });
+use App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('guest:admins')->group(function (): void {
+    Route::get('/', fn () => view('admin.welcome'));
     Route::get('login', [Admin\Auth\AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [Admin\Auth\AuthenticatedSessionController::class, 'store']);
     Route::get('forgot-password', [Admin\Auth\PasswordResetLinkController::class, 'create'])->name('password.request');
@@ -15,10 +15,8 @@ Route::middleware('guest:admins')->group(function () {
     Route::post('reset-password', [Admin\Auth\NewPasswordController::class, 'store'])->name('password.update');
 });
 
-Route::middleware('auth:admins')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+Route::middleware('auth:admins')->group(function (): void {
+    Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
 
     Route::get('register', [Admin\Auth\RegisteredUserController::class, 'create'])->name('register');
     Route::post('register', [Admin\Auth\RegisteredUserController::class, 'store']);

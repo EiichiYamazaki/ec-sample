@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\App\Repositories;
 
 use App\Enum\ItemEnum;
@@ -12,7 +14,8 @@ use Tests\TestCase;
 
 class ItemRepositoryTest extends TestCase
 {
-    use WithFaker, DatabaseMigrations;
+    use DatabaseMigrations;
+    use WithFaker;
     private ItemRepository $itemRepository;
 
     protected function setUp(): void
@@ -30,49 +33,49 @@ class ItemRepositoryTest extends TestCase
         $isPublished = ItemEnum::Publish->value;
         $id = Item::create(
             [
-                'name' => $name,
-                'description' => $description,
-                'price' => $price,
+                'name'         => $name,
+                'description'  => $description,
+                'price'        => $price,
                 'is_published' => $isPublished,
             ]
         )->id;
 
         $item = $this->itemRepository->find($id);
 
-        $this->assertNotNull($item);
-        $this->assertSame($id, $item->id);
-        $this->assertSame($description, $item->description);
-        $this->assertSame($price, $item->price);
-        $this->assertSame($isPublished, $item->is_published->value);
+        static::assertNotNull($item);
+        static::assertSame($id, $item->id);
+        static::assertSame($description, $item->description);
+        static::assertSame($price, $item->price);
+        static::assertSame($isPublished, $item->is_published->value);
     }
 
-    public function test_find_取得できなかった場合nullが返ってくる()
+    public function test_find_取得できなかった場合nullが返ってくる(): void
     {
         $id = 999999;
         $item = $this->itemRepository->find($id);
 
-        $this->assertNull($item);
+        static::assertNull($item);
     }
 
-    public function test_findAll_必要なフィールドが取得できるか()
+    public function test_findAll_必要なフィールドが取得できるか(): void
     {
         $items = $this->itemRepository->findAll();
 
         $expected = [
-            'id', 'name', 'description', 'price', 'is_published', 'created_at', 'updated_at'
+            'id', 'name', 'description', 'price', 'is_published', 'created_at', 'updated_at',
         ];
 
-        $this->assertSame($expected, array_keys($items->toArray()[0]));
+        static::assertSame($expected, array_keys($items->toArray()[0]));
     }
 
-    public function test_create()
+    public function test_create(): void
     {
         $dataModel = Item::factory()->makeOne();
         $item = $this->itemRepository->create($dataModel->toArray());
 
-        $this->assertSame($dataModel->name, $item->name);
-        $this->assertSame($dataModel->description, $item->description);
-        $this->assertSame($dataModel->price, $item->price);
-        $this->assertSame($dataModel->is_published->value, $item->is_published->value);
+        static::assertSame($dataModel->name, $item->name);
+        static::assertSame($dataModel->description, $item->description);
+        static::assertSame($dataModel->price, $item->price);
+        static::assertSame($dataModel->is_published->value, $item->is_published->value);
     }
 }

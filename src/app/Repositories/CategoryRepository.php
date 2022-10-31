@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Models\Category;
@@ -9,10 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryRepository
 {
-    /**
-     * @param int $id
-     * @return Builder|Collection|Model|null
-     */
     public function find(int $id): Model|Collection|Builder|null
     {
         return Category::query()->find($id);
@@ -26,10 +24,6 @@ class CategoryRepository
         return Category::query()->get();
     }
 
-    /**
-     * @param array $data
-     * @return int
-     */
     public function update(array $data): int
     {
         return Category::query()->update($data);
