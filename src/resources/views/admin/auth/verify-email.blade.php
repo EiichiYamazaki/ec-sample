@@ -9,7 +9,7 @@
       </div>
     </form>
 
-    <form method="POST" action="{{ route('admin,logout') }}">
+    <form method="POST" action="{{ route('admin.logout') }}">
       @csrf
 
       <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">

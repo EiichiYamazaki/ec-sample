@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Item;
+namespace App\UseCases\Admin\Item;
 
 use App\Enum\ItemEnum;
 use App\Repositories\CategoryRepository;

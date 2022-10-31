@@ -6,11 +6,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ItemRequest;
-use App\UseCases\Item\CreateUseCase;
-use App\UseCases\Item\EditUseCase;
-use App\UseCases\Item\IndexUseCase;
-use App\UseCases\Item\StoreUseCase;
-use App\UseCases\Item\UpdateUseCase;
+use App\UseCases\Admin\Item\CreateUseCase;
+use App\UseCases\Admin\Item\EditUseCase;
+use App\UseCases\Admin\Item\IndexUseCase;
+use App\UseCases\Admin\Item\StoreUseCase;
+use App\UseCases\Admin\Item\UpdateUseCase;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
