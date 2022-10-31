@@ -8,16 +8,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use App\Common\Route\RouteInfo;
 
 class LoginRequest extends FormRequest
 {
-    public function authorize()
+    /**
+     * @return bool
+     */
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    /**
+     * @return string[]
+     */
+    public function rules(): array
     {
         return [
             'email' => 'required|string|email',
@@ -25,16 +30,19 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function authenticate()
     {
         $this->ensureIsNotRateLimited();
 
         $guard = 'users';
-        if($this->routeIs(config('route.admin'))){
+        if ($this->routeIs(config('route.admin'))) {
             $guard = 'admins';
         }
 
-        if (! Auth::guard($guard)->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (!Auth::guard($guard)->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -45,6 +53,9 @@ class LoginRequest extends FormRequest
         RateLimiter::clear($this->throttleKey());
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function ensureIsNotRateLimited()
     {
         if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
@@ -63,7 +74,10 @@ class LoginRequest extends FormRequest
         ]);
     }
 
-    public function throttleKey()
+    /**
+     * @return string
+     */
+    public function throttleKey(): string
     {
         return Str::lower($this->input('email')).'|'.$this->ip();
     }

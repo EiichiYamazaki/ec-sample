@@ -4,6 +4,7 @@ namespace App\UseCases\Item;
 
 use App\Enum\ItemEnum;
 use App\Exceptions\NoItemException;
+use App\Models\Item;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ItemRepository;
 use App\Services\ItemService;
