@@ -30,6 +30,7 @@ class UpdateUseCase
             'price'        => $request->price,
             'is_published' => $request->is_published,
         ]);
+
         /** @var Item $item */
         $item = $this->itemRepository->find($id);
         $item->categories()->sync($request->category);
