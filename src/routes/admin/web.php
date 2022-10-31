@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
 
-Route::middleware('guest')->group(function () {
+Route::middleware('guest:admins')->group(function () {
     Route::get('/', function () {
         return view('admin.welcome');
     });

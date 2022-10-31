@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front;
 
-Route::middleware('guest')->group(function () {
+Route::middleware('guest:users')->group(function () {
     Route::get('register', [Front\Auth\RegisteredUserController::class, 'create'])
                 ->name('register');
 
