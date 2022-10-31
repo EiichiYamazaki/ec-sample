@@ -1,0 +1,79 @@
+name: CI Laravel
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_central
+          TZ: "Asia/Tokyo"
+        ports:
+          - 3306:3306
+
+    defaults:
+      run:
+        working-directory: ./src
+
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+
+      - uses: actions/checkout@v2
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Set Composer Cache Directory
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: ./src/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{secrets.GITHUB_TOKEN}}"} }'
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+
+      - name: Composer dump-autoload
+        run: composer dump-autoload
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: php lint
+        run: vendor/bin/php-cs-fixer fix --dry-run --allow-risky=yes
+
+      - name: phpStan
+        run: vendor/bin/phpstan analyze --memory-limit=256M
+
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --password=$MYSQL_ROOT_PASSWORD --silent; do
+            sleep 1
+          done
+
+      - name: migration
+        env:
+          DB_HOST: 127.0.0.1
+        run: php artisan migrate:fresh --env=testing
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
+          DB_HOST: 127.0.0.1
+        run: vendor/bin/phpunit
