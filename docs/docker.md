@@ -22,3 +22,5 @@ php artisan db:seed
 [local](http://localhost)
 
 [phpmyadmin](http://localhost:8001)
+
+[mail](http://localhost:8025)
