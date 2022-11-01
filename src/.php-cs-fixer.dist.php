@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
     ->exclude('bootstrap/cache')
+    ->exclude('storage')
     ->in(__DIR__)
 ;
 

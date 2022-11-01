@@ -29,7 +29,7 @@ class StoreUseCase
         event(new Registered($user));
 
         /** @var Auth $auth */
-        $auth = Auth::guard('users');
+        $auth = Auth::guard('admins');
         $auth->login($user);
 
         return $user;

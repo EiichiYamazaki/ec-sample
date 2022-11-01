@@ -6,25 +6,26 @@ namespace App\Http\Controllers\Front\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Verified;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class VerifyEmailController extends Controller
 {
-    /**
-     * Mark the authenticated user's email address as verified.
-     */
-    public function __invoke(EmailVerificationRequest $request): RedirectResponse
+    public function notice(Request $request): View|Factory|Application|RedirectResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
-        }
+        return $request->user()->hasVerifiedEmail()
+            ? redirect()->intended(RouteServiceProvider::HOME)
+            : view('front.auth.verify-email');
+    }
 
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
-        }
+    public function verify(EmailVerificationRequest $request): RedirectResponse
+    {
+        $request->fulfill();
 
-        return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+        return redirect(RouteServiceProvider::HOME);
     }
 }

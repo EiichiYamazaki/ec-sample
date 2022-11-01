@@ -20,8 +20,8 @@ Route::middleware('auth:admins')->group(function (): void {
 
     Route::get('register', [Admin\Auth\RegisteredUserController::class, 'create'])->name('register');
     Route::post('register', [Admin\Auth\RegisteredUserController::class, 'store']);
-    Route::get('verify-email', [Admin\Auth\EmailVerificationPromptController::class, '__invoke'])->name('verification.notice');
-    Route::get('verify-email/{id}/{hash}', [Admin\Auth\VerifyEmailController::class, '__invoke'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify')->name('verification.send');
+//    Route::get('verify-email', [Admin\Auth\EmailVerificationPromptController::class, '__invoke'])->name('verification.notice');
+//    Route::get('verify-email/{id}/{hash}', [Admin\Auth\VerifyEmailController::class, '__invoke'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify')->name('verification.send');
     Route::get('confirm-password', [Admin\Auth\ConfirmablePasswordController::class, 'show'])->name('password.confirm');
     Route::post('confirm-password', [Admin\Auth\ConfirmablePasswordController::class, 'store']);
     Route::post('logout', [Admin\Auth\AuthenticatedSessionController::class, 'destroy'])->name('logout');
