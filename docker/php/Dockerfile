@@ -4,7 +4,11 @@ RUN apt-get update && apt-get install -y \
 zlib1g-dev \
 libzip-dev \
 vim \
-&& docker-php-ext-install zip pdo_mysql opcache
+git \
+&& docker-php-ext-install zip pdo_mysql
+
+RUN git clone https://github.com/phpredis/phpredis.git /usr/src/php/ext/redis \
+&& docker-php-ext-install redis
 
 ENV NODE_VERSION=16.14.0
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
