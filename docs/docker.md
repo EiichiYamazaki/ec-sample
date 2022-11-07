@@ -1,4 +1,9 @@
 # Docker
+.envでアプリケーション名とIPを設定する
+
+.envのアプリケーション名がそのままDB名になるので注意
+
+Laravelの.env.exampleのDB名も同じ名前に変更する
 
 ## Setup
 
