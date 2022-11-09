@@ -9,7 +9,7 @@ services:
     image: nginx
     container_name: ${APP_NAME:-app}_nginx
     ports:
-      - ${IP:-127.0.0.1}:80:80
+      - ${IP:-0.0.0.0}:80:80
     volumes:
       - ./src:/var/www/src
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
@@ -28,13 +28,13 @@ services:
       - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./docker/db/sql:/docker-entrypoint-initdb.d
     ports:
-      - ${IP:-127.0.0.1}:3306:3306
+      - ${IP:-0.0.0.0}:3306:3306
 
   redis:
     container_name: ${APP_NAME:-app}_redis
     image: redis:latest
     ports:
-      - ${IP:-127.0.0.1}:6379:6379
+      - ${IP:-0.0.0.0}:6379:6379
     volumes:
       - ./docker/redis/data:/data
 
@@ -42,14 +42,14 @@ services:
     container_name: ${APP_NAME:-app}_mailhog
     image: "mailhog/mailhog:latest"
     ports:
-      - ${IP:-127.0.0.1}:1025:1025
-      - ${IP:-127.0.0.1}:8025:8025
+      - ${IP:-0.0.0.0}:1025:1025
+      - ${IP:-0.0.0.0}:8025:8025
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: ${APP_NAME:-app}_phpmyadmin
     ports:
-      - ${IP:-127.0.0.1}:8001:80
+      - ${IP:-0.0.0.0}:8001:80
     depends_on:
       - db
     environment:
