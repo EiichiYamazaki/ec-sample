@@ -9,7 +9,7 @@ Laravelの.env.exampleのDB名も同じ名前に変更する
 
 up
 ```
-docker-compose up -b
+docker-compose up -d
 ```
 
 php
